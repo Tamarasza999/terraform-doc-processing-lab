@@ -1,6 +1,6 @@
 # Event-Driven Document Processing Pipeline (Terraform + LocalStack)
 
-<img src="index.png" width="500" alt="Event-Driven Processing Architecture"/>
+<img src="screenshots/index.png" width="500" alt="Event-Driven Processing Architecture"/>
 
 ## Overview
 
@@ -157,4 +157,4 @@ echo "Complete!"
 
 ## Architecture Diagram
 
-[<img src="diagram.png" width="500" alt="Event-Driven Processing Architecture"/>](https://aws.amazon.com/serverless)
+[<img src="screenshots/diagram.png" width="700" alt="Event-Driven Processing Architecture"/>](https://aws.amazon.com/serverless)
