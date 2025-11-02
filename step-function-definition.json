@@ -1,0 +1,87 @@
+{
+    "Comment": "Document Processing Workflow",
+    "StartAt": "ValidateDocument",
+    "States": {
+      "ValidateDocument": {
+        "Type": "Task",
+        "Resource": "${validate_lambda_arn}",
+        "Next": "IsDocumentValid",
+        "ResultPath": "$.validationResult",
+        "Catch": [
+          {
+            "ErrorEquals": ["States.ALL"],
+            "Next": "ProcessFailed",
+            "ResultPath": "$.error"
+          }
+        ]
+      },
+      "IsDocumentValid": {
+        "Type": "Choice",
+        "Choices": [
+          {
+            "Variable": "$.validationResult.status",
+            "StringEquals": "VALID",
+            "Next": "ProcessOCR"
+          }
+        ],
+        "Default": "ProcessFailed"
+      },
+      "ProcessOCR": {
+        "Type": "Task",
+        "Resource": "${ocr_lambda_arn}",
+        "Next": "TransformData",
+        "ResultPath": "$.ocrResult",
+        "Catch": [
+          {
+            "ErrorEquals": ["States.ALL"],
+            "Next": "ProcessFailed",
+            "ResultPath": "$.error"
+          }
+        ]
+      },
+      "TransformData": {
+        "Type": "Task",
+        "Resource": "${transform_lambda_arn}",
+        "Next": "StoreResults",
+        "ResultPath": "$.transformationResult",
+        "Catch": [
+          {
+            "ErrorEquals": ["States.ALL"],
+            "Next": "ProcessFailed",
+            "ResultPath": "$.error"
+          }
+        ]
+      },
+      "StoreResults": {
+        "Type": "Task",
+        "Resource": "${store_lambda_arn}",
+        "Next": "SendNotification",
+        "ResultPath": "$.storageResult",
+        "Catch": [
+          {
+            "ErrorEquals": ["States.ALL"],
+            "Next": "ProcessFailed",
+            "ResultPath": "$.error"
+          }
+        ]
+      },
+      "SendNotification": {
+        "Type": "Task",
+        "Resource": "${notify_lambda_arn}",
+        "End": true,
+        "ResultPath": "$.notificationResult",
+        "Catch": [
+          {
+            "ErrorEquals": ["States.ALL"],
+            "Next": "ProcessFailed",
+            "ResultPath": "$.error"
+          }
+        ]
+      },
+      "ProcessFailed": {
+        "Type": "Fail",
+        "Cause": "Document processing failed",
+        "Error": "ProcessingError"
+      }
+    }
+  }
