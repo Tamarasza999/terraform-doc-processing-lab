@@ -1,6 +1,6 @@
-# Secure Document Processing Pipeline (Terraform + LocalStack)
+# Event-Driven Document Processing Pipeline (Terraform + LocalStack)
 
-<img src="index.png" width="500" alt="Event-Driven Processing Architecture"/>](https://aws.amazon.com/serverless)
+<img src="index.png" width="500" alt="Event-Driven Processing Architecture"/>
 
 ## Overview
 
@@ -25,12 +25,11 @@ This project builds a secure event-driven document processing architecture local
 - Fully local deployment (no AWS account required)
 
 ## Security Features
-- Data encryption - documents encrypted at rest in s3 and in transitL
 - Least privilege access - iam roles with only required permissions
 - Secure processing - lambda functions run in isolated execution settings
-- Audit trail - full processing logs and kinesis monitoring
+- Audit trail - full processing logs through localstack
 - Access controls - dynamodb with detailed access rules
-- Secure messaging - sqs with encryption and controlled permissions
+- Secure messaging -  SQS with proper access policies
 
 ## Requirements
 - Terraform 1.0+
@@ -42,7 +41,7 @@ This project builds a secure event-driven document processing architecture local
 ## Start LocalStack
 
 <pre><code>docker run -d -p 4566:4566 \
-  -e SERVICES=s3,lambda,sqs,stepfunctions,dynamodb,kinesis,iam,cloudwatch \
+  -e SERVICES=s3,lambda,sqs,stepfunctions,dynamodb,kinesis,iam \
   -e LAMBDA_EXECUTOR=docker \
   -v /var/run/docker.sock:/var/run/docker.sock \
   --name localstack \
