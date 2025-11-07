@@ -9,10 +9,10 @@ def lambda_handler(event, context):
         document_id = event['documentId']
         extracted_text = event.get('extractedText', '')
         
-        # Simulate data transformation
+        #simulate data transformation
         print(f"Transforming data for document: {document_id}")
         
-        # Extract structured data (mock implementation)
+        #extract structured data (mock implementation)
         structured_data = {
             'documentId': document_id,
             'entities': extract_entities(extracted_text),
@@ -21,7 +21,7 @@ def lambda_handler(event, context):
             'transformedAt': datetime.utcnow().isoformat()
         }
         
-        # Merge with incoming data
+        #merge with incoming data
         result = {**event, **structured_data}
         result['transformationStatus'] = 'COMPLETED'
         
@@ -37,7 +37,7 @@ def lambda_handler(event, context):
         }
 
 def extract_entities(text):
-    # Mock entity extraction
+    #mock entity extraction
     entities = []
     if 'important' in text.lower():
         entities.append({'type': 'KEY_PHRASE', 'value': 'important information', 'confidence': 0.9})
@@ -46,11 +46,11 @@ def extract_entities(text):
     return entities
 
 def extract_keywords(text):
-    # Mock keyword extraction
+    #mock keyword extraction
     words = re.findall(r'\b\w+\b', text.lower())
     return list(set(words))[:5]  # Return top 5 unique words
 
 def generate_summary(text):
-    # Mock summary generation
+    #mock summary generation
     sentences = text.split('.')
     return sentences[0] + '.' if sentences else "No summary available"
