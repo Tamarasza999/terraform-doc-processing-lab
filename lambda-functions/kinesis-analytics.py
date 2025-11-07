@@ -9,11 +9,11 @@ def lambda_handler(event, context):
         records_processed = 0
         
         for record in event['Records']:
-            # Kinesis data is base64 encoded
+            #kinesis data is base64 encoded
             payload = base64.b64decode(record['kinesis']['data']).decode('utf-8')
             data = json.loads(payload)
             
-            # Process analytics data
+            #process analytics data
             process_analytics(data)
             records_processed += 1
         
@@ -31,17 +31,13 @@ def lambda_handler(event, context):
         }
 
 def process_analytics(data):
-    # Mock analytics processing
+    #mock analytics processing
     document_id = data.get('documentId')
     processing_stage = data.get('stage', 'unknown')
     
     print(f"Analytics - Document: {document_id}, Stage: {processing_stage}")
     
-    # In a real implementation, you might:
-    # - Update counters in DynamoDB
-    # - Send metrics to CloudWatch
-    # - Detect anomalies
-    # - Update real-time dashboards
+
     
     analytics_result = {
         'documentId': document_id,
