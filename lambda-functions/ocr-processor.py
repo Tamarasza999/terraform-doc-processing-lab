@@ -8,13 +8,13 @@ def lambda_handler(event, context):
     try:
         document_id = event['documentId']
         
-        # Simulate OCR processing
+        #simulate OCR processing
         print(f"Starting OCR processing for document: {document_id}")
         
-        # Simulate processing time
+        #simulate processing time
         time.sleep(2)
         
-        # Mock OCR results
+        #mock OCR results
         ocr_results = {
             'documentId': document_id,
             'ocrStatus': 'COMPLETED',
@@ -24,7 +24,7 @@ def lambda_handler(event, context):
             'processingTime': 2.5
         }
         
-        # Merge with incoming event data
+        #merge with incoming event data
         result = {**event, **ocr_results}
         
         print(f"OCR completed for document: {document_id}")
