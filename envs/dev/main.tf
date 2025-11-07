@@ -34,7 +34,7 @@ provider "aws" {
   s3_use_path_style = true
 }
 
-# 1. First create independent resources
+#independent resources
 module "dynamodb" {
   source = "../../modules/dynamodb-table"
   env    = var.env
@@ -45,7 +45,7 @@ module "sqs" {
   env    = var.env
 }
 
-# 2. Create processing lambdas first
+#processing lambdas
 module "processing_lambdas" {
   source = "../../modules/processing-lambdas"
   env    = var.env
@@ -61,7 +61,7 @@ module "processing_lambdas" {
   dynamodb_table_name = module.dynamodb.table_name
 }
 
-# 3. Create Step Functions after lambdas exist
+#step functions after lambdas exist
 module "step_functions" {
   source = "../../modules/step-functions"
   env    = var.env
@@ -72,7 +72,7 @@ module "step_functions" {
   store_lambda_arn     = module.processing_lambdas.final_storer_arn
 }
 
-# 4. Create S3 trigger
+#S3 trigger
 module "s3_trigger" {
   source = "../../modules/s3-trigger"
   env    = var.env
