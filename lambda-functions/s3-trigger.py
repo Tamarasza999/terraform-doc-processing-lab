@@ -14,10 +14,10 @@ def lambda_handler(event, context):
             bucket = record['s3']['bucket']['name']
             key = record['s3']['object']['key']
             
-            # Create unique document ID
+            #create unique document ID
             document_id = str(uuid.uuid4())
             
-            # Send message to SQS
+            #send message to SQS
             message = {
                 'documentId': document_id,
                 'bucket': bucket,
@@ -25,7 +25,7 @@ def lambda_handler(event, context):
                 'timestamp': record['eventTime']
             }
             
-            # Get queue URL from environment variable or use default
+            #get queue URL from environment variable or use default
             queue_url = os.environ.get('QUEUE_URL', 'http://localhost:4566/000000000000/dev-document-queue')
             
             sqs.send_message(
