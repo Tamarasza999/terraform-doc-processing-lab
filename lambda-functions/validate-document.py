@@ -5,7 +5,7 @@ def lambda_handler(event, context):
     print("Validate Document Event:", json.dumps(event))
     
     try:
-        # Extract message from SQS event
+        #extract message from SQS event
         if 'Records' in event:
             record = event['Records'][0]
             message = json.loads(record['body'])
@@ -16,15 +16,15 @@ def lambda_handler(event, context):
         bucket = message['bucket']
         key = message['key']
         
-        # Simulate document validation
+        #simulate document validation
         s3 = boto3.client('s3')
         
-        # Check if file exists and get metadata
+        #check if file exists and get metadata
         response = s3.head_object(Bucket=bucket, Key=key)
         file_size = response['ContentLength']
         content_type = response['ContentType']
         
-        # Validate file type and size
+        #validate file type and size
         allowed_types = ['application/pdf', 'image/jpeg', 'image/png', 'text/plain']
         max_size = 10 * 1024 * 1024  # 10MB
         
