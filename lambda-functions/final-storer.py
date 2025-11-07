@@ -8,12 +8,12 @@ def lambda_handler(event, context):
     print("Final Storer Event:", json.dumps(event))
     
     try:
-        table_name = "dev-documents"  # Would be from environment variable
+        table_name = "dev-documents"  #would be from environment variable
         table = dynamodb.Table(table_name)
         
         document_id = event['documentId']
         
-        # Prepare item for DynamoDB
+        #prepare item for DynamoDB
         item = {
             'documentId': document_id,
             'userId': 'user123',  # Mock user ID
@@ -31,7 +31,7 @@ def lambda_handler(event, context):
             'status': 'COMPLETED'
         }
         
-        # Store in DynamoDB
+        #store in DynamoDB
         response = table.put_item(Item=item)
         
         result = {
