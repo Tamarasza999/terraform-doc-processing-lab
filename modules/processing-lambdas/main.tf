@@ -1,4 +1,3 @@
-# S3 Trigger Lambda
 resource "aws_lambda_function" "s3_trigger" {
   filename      = var.s3_trigger_zip
   function_name = "${var.env}-s3-trigger"
@@ -14,7 +13,7 @@ resource "aws_lambda_function" "s3_trigger" {
   }
 }
 
-# Validate Document Lambda
+
 resource "aws_lambda_function" "validate_document" {
   filename      = var.validate_document_zip
   function_name = "${var.env}-validate-document"
@@ -24,7 +23,7 @@ resource "aws_lambda_function" "validate_document" {
   timeout       = 60
 }
 
-# OCR Processor Lambda
+
 resource "aws_lambda_function" "ocr_processor" {
   filename      = var.ocr_processor_zip
   function_name = "${var.env}-ocr-processor"
@@ -35,7 +34,7 @@ resource "aws_lambda_function" "ocr_processor" {
   memory_size   = 512
 }
 
-# Data Transformer Lambda
+
 resource "aws_lambda_function" "data_transformer" {
   filename      = var.data_transformer_zip
   function_name = "${var.env}-data-transformer"
@@ -45,7 +44,7 @@ resource "aws_lambda_function" "data_transformer" {
   timeout       = 60
 }
 
-# Final Storer Lambda
+
 resource "aws_lambda_function" "final_storer" {
   filename      = var.final_storer_zip
   function_name = "${var.env}-final-storer"
@@ -61,7 +60,7 @@ resource "aws_lambda_function" "final_storer" {
   }
 }
 
-# Kinesis Analytics Lambda
+
 resource "aws_lambda_function" "kinesis_analytics" {
   filename      = var.kinesis_analytics_zip
   function_name = "${var.env}-kinesis-analytics"
@@ -71,7 +70,7 @@ resource "aws_lambda_function" "kinesis_analytics" {
   timeout       = 60
 }
 
-# IAM Role for Lambdas
+
 resource "aws_iam_role" "lambda" {
   name = "${var.env}-lambda-role"
 
